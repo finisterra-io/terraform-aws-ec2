@@ -1,3 +1,9 @@
+variable "enabvled" {
+  type        = bool
+  description = "Whether to create the EC2 instance"
+  default     = true
+}
+
 variable "ssh_key_pair" {
   type        = string
   description = "SSH key pair to be provisioned on the instance"
@@ -479,4 +485,10 @@ variable "root_block_device_kms_key_alias" {
   type        = string
   default     = null
   description = "KMS key alias used to encrypt EBS volume. When specifying root_block_device_kms_key_alias, root_block_device_encrypted needs to be set to true"
+}
+
+variable "tags" {
+  type        = map(string)
+  description = "A map of tags to add to all resources"
+  default     = {}
 }

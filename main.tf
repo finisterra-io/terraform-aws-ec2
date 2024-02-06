@@ -1,8 +1,8 @@
 locals {
-  enabled                = module.this.enabled
+  enabled                = var.enabled
   instance_count         = local.enabled ? 1 : 0
   volume_count           = var.ebs_volume_count > 0 && local.instance_count > 0 ? var.ebs_volume_count : 0
-  security_group_enabled = module.this.enabled && var.security_group_enabled
+  security_group_enabled = var.enabled && var.security_group_enabled
   region                 = var.region != "" ? var.region : data.aws_region.default.name
   root_iops              = contains(["io1", "io2", "gp3"], var.root_volume_type) ? var.root_iops : null
   ebs_iops               = contains(["io1", "io2", "gp3"], var.ebs_volume_type) ? var.ebs_iops : null
@@ -95,7 +95,7 @@ resource "aws_instance" "default" {
 }
 
 resource "aws_eip" "default" {
-  for_each = module.this.enabled ? var.public_ip_addresses : {}
+  for_each = var.enabled ? var.public_ip_addresses : {}
   instance = one(aws_instance.default[*].id)
   domain   = "vpc"
   tags     = each.value.tags
