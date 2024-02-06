@@ -8,23 +8,6 @@ data "aws_subnet" "default" {
   }
 }
 
-data "aws_iam_policy_document" "default" {
-  statement {
-    sid = ""
-
-    actions = [
-      "sts:AssumeRole",
-    ]
-
-    principals {
-      type        = "Service"
-      identifiers = ["ec2.amazonaws.com"]
-    }
-
-    effect = "Allow"
-  }
-}
-
 data "aws_ami" "default" {
   count       = var.ami == "" ? 1 : 0
   most_recent = "true"
