@@ -1,7 +1,6 @@
 locals {
   enabled          = var.enabled
   instance_count   = local.enabled ? 1 : 0
-  region           = var.region != "" ? var.region : data.aws_region.default.name
   root_iops        = contains(["io1", "io2", "gp3"], var.root_volume_type) ? var.root_iops : null
   root_throughput  = var.root_volume_type == "gp3" ? var.root_throughput : null
   ami              = var.ami != "" ? var.ami : one(data.aws_ami.default[*].image_id)
