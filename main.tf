@@ -1,19 +1,12 @@
 locals {
-  enabled                = var.enabled
-  instance_count         = local.enabled ? 1 : 0
-  volume_count           = var.ebs_volume_count > 0 && local.instance_count > 0 ? var.ebs_volume_count : 0
-  security_group_enabled = var.enabled && var.security_group_enabled
-  region                 = var.region != "" ? var.region : data.aws_region.default.name
-  root_iops              = contains(["io1", "io2", "gp3"], var.root_volume_type) ? var.root_iops : null
-  ebs_iops               = contains(["io1", "io2", "gp3"], var.ebs_volume_type) ? var.ebs_iops : null
-  root_throughput        = var.root_volume_type == "gp3" ? var.root_throughput : null
-  ebs_throughput         = var.ebs_volume_type == "gp3" ? var.ebs_throughput : null
-  # availability_zone      = var.availability_zone != "" ? var.availability_zone : data.aws_subnet.default.availability_zone
+  enabled          = var.enabled
+  instance_count   = local.enabled ? 1 : 0
+  region           = var.region != "" ? var.region : data.aws_region.default.name
+  root_iops        = contains(["io1", "io2", "gp3"], var.root_volume_type) ? var.root_iops : null
+  root_throughput  = var.root_volume_type == "gp3" ? var.root_throughput : null
   ami              = var.ami != "" ? var.ami : one(data.aws_ami.default[*].image_id)
   ami_owner        = var.ami != "" ? var.ami_owner : one(data.aws_ami.default[*].owner_id)
   root_volume_type = var.root_volume_type != "" ? var.root_volume_type : one(data.aws_ami.info[*].root_device_type)
-
-  region_domain = local.region == "us-east-1" ? "compute-1.amazonaws.com" : "${local.region}.compute.amazonaws.com"
 }
 
 
