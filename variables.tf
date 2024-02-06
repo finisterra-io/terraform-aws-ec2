@@ -227,14 +227,14 @@ variable "device_name_list" {
   description = "Details of the EBS devices to mount"
 
   type = map(object({
-    size          = optional(number)
-    iops          = optional(number)
-    throughput    = optional(number)
-    type          = optional(string)
-    tags          = optional(map(string))
-    encrypted     = optional(bool)
-    kms_key_id    = optional(string)
-    kms_key_alias = optional(string)
+    size          = number
+    iops          = number
+    throughput    = number
+    type          = string
+    tags          = map(string)
+    encrypted     = bool
+    kms_key_id    = string
+    kms_key_alias = string
   }))
 
   default = {}
