@@ -20,7 +20,7 @@ output "arn" {
 
 output "name" {
   description = "Instance name"
-  value       = module.this.id
+  value       = one(aws_instance.default[*].tags.Name)
 }
 
 output "ssh_key_pair" {

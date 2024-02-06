@@ -78,7 +78,7 @@ resource "aws_instance" "default" {
     cpu_credits = var.burstable_mode
   }
 
-  tags = module.this.tags
+  tags = var.tags
 
 
   lifecycle {
