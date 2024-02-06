@@ -1,4 +1,4 @@
-variable "enabvled" {
+variable "enabled" {
   type        = bool
   description = "Whether to create the EC2 instance"
   default     = true
