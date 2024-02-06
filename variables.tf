@@ -40,12 +40,6 @@ variable "burstable_mode" {
   default     = null
 }
 
-variable "security_group_enabled" {
-  type        = bool
-  description = "Whether to create default Security Group for EC2."
-  default     = true
-}
-
 variable "security_groups" {
   description = "A list of Security Group IDs to associate with EC2 instance."
   type        = list(string)
@@ -145,30 +139,6 @@ variable "root_iops" {
 variable "root_throughput" {
   type        = number
   description = "Amount of throughput. This must be set if root_volume_type is set to `gp3`"
-  default     = 0
-}
-
-variable "ebs_volume_type" {
-  type        = string
-  description = "The type of the additional EBS volumes. Can be standard, gp2, gp3, io1 or io2"
-  default     = "gp2"
-}
-
-variable "ebs_iops" {
-  type        = number
-  description = "Amount of provisioned IOPS. This must be set with a volume_type of `io1`, `io2` or `gp3`"
-  default     = 0
-}
-
-variable "ebs_throughput" {
-  type        = number
-  description = "Amount of throughput. This must be set if volume_type is set to `gp3`"
-  default     = 0
-}
-
-variable "ebs_volume_count" {
-  type        = number
-  description = "Count of EBS volumes that will be attached to the instance"
   default     = 0
 }
 
