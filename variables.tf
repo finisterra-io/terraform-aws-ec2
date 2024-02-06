@@ -52,12 +52,6 @@ variable "subnet" {
   default     = ""
 }
 
-variable "region" {
-  type        = string
-  description = "AWS Region the instance is launched in"
-  default     = ""
-}
-
 variable "availability_zone" {
   type        = string
   description = "Availability Zone the instance is launched in. If not set, will be launched in the first AZ of the region"
