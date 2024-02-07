@@ -4,15 +4,14 @@
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 2.0 |
-| <a name="requirement_null"></a> [null](#requirement\_null) | >= 2.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.67 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 2.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.67 |
 
 ## Modules
 
@@ -46,7 +45,7 @@ No modules.
 | <a name="input_availability_zone"></a> [availability\_zone](#input\_availability\_zone) | Availability Zone the instance is launched in. If not set, will be launched in the first AZ of the region | `string` | `""` | no |
 | <a name="input_burstable_mode"></a> [burstable\_mode](#input\_burstable\_mode) | Enable burstable mode for the instance. Can be standard or unlimited. Applicable only for T2/T3/T4g instance types. | `string` | `null` | no |
 | <a name="input_delete_on_termination"></a> [delete\_on\_termination](#input\_delete\_on\_termination) | Whether the volume should be destroyed on instance termination | `bool` | `true` | no |
-| <a name="input_device_name_list"></a> [device\_name\_list](#input\_device\_name\_list) | Details of the EBS devices to mount | <pre>map(object({<br>    size          = number<br>    iops          = number<br>    throughput    = number<br>    type          = string<br>    tags          = map(string)<br>    encrypted     = bool<br>    kms_key_id    = string<br>    kms_key_alias = string<br>  }))</pre> | `{}` | no |
+| <a name="input_device_name_list"></a> [device\_name\_list](#input\_device\_name\_list) | Details of the EBS devices to mount | <pre>map(object({<br>    size          = optional(number)<br>    iops          = optional(number)<br>    throughput    = optional(number)<br>    type          = optional(string)<br>    tags          = optional(map(string))<br>    encrypted     = optional(bool)<br>    kms_key_id    = optional(string)<br>    kms_key_alias = optional(string)<br>  }))</pre> | `{}` | no |
 | <a name="input_disable_api_termination"></a> [disable\_api\_termination](#input\_disable\_api\_termination) | Enable EC2 Instance Termination Protection | `bool` | `false` | no |
 | <a name="input_ebs_optimized"></a> [ebs\_optimized](#input\_ebs\_optimized) | Launched EC2 instance will be EBS-optimized | `bool` | `true` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Whether to create the EC2 instance | `bool` | `true` | no |
