@@ -1,11 +1,7 @@
 locals {
-  enabled          = var.enabled
-  instance_count   = local.enabled ? 1 : 0
-  root_iops        = contains(["io1", "io2", "gp3"], var.root_volume_type) ? var.root_iops : null
-  root_throughput  = var.root_volume_type == "gp3" ? var.root_throughput : null
-  ami              = var.ami != "" ? var.ami : one(data.aws_ami.default[*].image_id)
-  ami_owner        = var.ami != "" ? var.ami_owner : one(data.aws_ami.default[*].owner_id)
-  root_volume_type = var.root_volume_type != "" ? var.root_volume_type : one(data.aws_ami.info[*].root_device_type)
+  enabled        = var.enabled
+  instance_count = local.enabled ? 1 : 0
+  ami            = var.ami != "" ? var.ami : one(data.aws_ami.default[*].image_id)
 }
 
 
@@ -55,15 +51,18 @@ resource "aws_instance" "default" {
     }
   }
 
-  root_block_device {
-    volume_type           = local.root_volume_type
-    volume_size           = var.root_volume_size
-    iops                  = local.root_iops
-    throughput            = local.root_throughput
-    delete_on_termination = var.delete_on_termination
-    encrypted             = var.root_block_device_encrypted
-    kms_key_id            = var.root_block_device_kms_key_alias != null ? data.aws_kms_key.root_ebs[0].arn : var.root_block_device_kms_key_id
-    tags                  = var.root_block_device_tags
+  dynamic "root_block_device" {
+    for_each = var.root_block_device != null ? [var.root_block_device] : []
+    content {
+      volume_type           = root_block_device.value.volume_type
+      volume_size           = root_block_device.value.volume_size
+      iops                  = root_block_device.value.iops
+      throughput            = root_block_device.value.throughput
+      delete_on_termination = root_block_device.value.delete_on_termination
+      encrypted             = root_block_device.value.encrypted
+      kms_key_id            = lookup(root_block_device.value, "kms_key_alias", null) != null ? data.aws_kms_key.root_ebs[0].arn : root_block_device.value.kms_key_id
+      tags                  = root_block_device.value.tags
+    }
   }
 
   metadata_options {

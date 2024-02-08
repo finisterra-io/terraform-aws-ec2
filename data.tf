@@ -23,23 +23,12 @@ data "aws_ami" "default" {
   owners = ["099720109477"]
 }
 
-data "aws_ami" "info" {
-  count = var.root_volume_type != "" ? 0 : 1
-
-  filter {
-    name   = "image-id"
-    values = [local.ami]
-  }
-
-  owners = [local.ami_owner]
-}
-
 data "aws_kms_key" "ebs" {
   for_each = { for key, value in var.device_name_list : key => value if value.kms_key_alias != null }
   key_id   = each.value.kms_key_alias
 }
 
 data "aws_kms_key" "root_ebs" {
-  count  = var.root_block_device_kms_key_alias != null ? 1 : 0
-  key_id = var.root_block_device_kms_key_alias
+  count  = lookup(var.root_block_device, "kms_key_alias", null) != null ? 1 : 0
+  key_id = var.root_block_device.kms_key_alias
 }
