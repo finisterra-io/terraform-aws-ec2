@@ -64,12 +64,6 @@ variable "ami" {
   default     = ""
 }
 
-variable "ami_owner" {
-  type        = string
-  description = "Owner of the given AMI (ignored if `ami` unset, required if set)"
-  default     = ""
-}
-
 variable "ebs_optimized" {
   type        = bool
   description = "Launched EC2 instance will be EBS-optimized"
@@ -112,36 +106,6 @@ variable "ipv6_address_count" {
   default     = 0
 }
 
-variable "root_volume_type" {
-  type        = string
-  description = "Type of root volume. Can be standard, gp2, gp3, io1 or io2"
-  default     = "gp2"
-}
-
-variable "root_volume_size" {
-  type        = number
-  description = "Size of the root volume in gigabytes"
-  default     = 10
-}
-
-variable "root_iops" {
-  type        = number
-  description = "Amount of provisioned IOPS. This must be set if root_volume_type is set of `io1`, `io2` or `gp3`"
-  default     = 0
-}
-
-variable "root_throughput" {
-  type        = number
-  description = "Amount of throughput. This must be set if root_volume_type is set to `gp3`"
-  default     = 0
-}
-
-variable "delete_on_termination" {
-  type        = bool
-  description = "Whether the volume should be destroyed on instance termination"
-  default     = true
-}
-
 variable "additional_ips_count" {
   type        = number
   description = "Count of additional EIPs"
@@ -158,18 +122,6 @@ variable "instance_initiated_shutdown_behavior" {
   type        = string
   description = "Specifies whether an instance stops or terminates when you initiate shutdown from the instance. Can be one of 'stop' or 'terminate'."
   default     = null
-}
-
-variable "root_block_device_encrypted" {
-  type        = bool
-  default     = true
-  description = "Whether to encrypt the root block device"
-}
-
-variable "root_block_device_kms_key_id" {
-  type        = string
-  default     = null
-  description = "KMS key ID used to encrypt EBS volume. When specifying root_block_device_kms_key_id, root_block_device_encrypted needs to be set to true"
 }
 
 variable "metadata_http_put_response_hop_limit" {
@@ -240,12 +192,6 @@ variable "device_name_list" {
   default = {}
 }
 
-variable "root_block_device_tags" {
-  type        = map(string)
-  description = "A map of tags to assign to the devices created by the instance at launch time."
-  default     = {}
-}
-
 variable "metadata_http_protocol_ipv6" {
   type        = string
   default     = null
@@ -276,14 +222,23 @@ variable "subnet_id" {
   default     = ""
 }
 
-variable "root_block_device_kms_key_alias" {
-  type        = string
-  default     = null
-  description = "KMS key alias used to encrypt EBS volume. When specifying root_block_device_kms_key_alias, root_block_device_encrypted needs to be set to true"
-}
-
 variable "tags" {
   type        = map(string)
   description = "A map of tags to add to all resources"
   default     = {}
+}
+
+variable "root_block_device" {
+  type = object({
+    volume_type           = string
+    volume_size           = number
+    iops                  = number
+    throughput            = number
+    delete_on_termination = bool
+    encrypted             = bool
+    kms_key_id            = optional(string)
+    kms_key_alias         = optional(string)
+    tags                  = optional(map(string))
+  })
+  description = "Root block device configuration"
 }
