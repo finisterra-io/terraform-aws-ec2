@@ -81,7 +81,7 @@ resource "aws_instance" "default" {
 
 
   lifecycle {
-    ignore_changes = [user_data]
+    ignore_changes = [user_data, user_data_replace_on_change, credit_specification]
   }
 }
 
