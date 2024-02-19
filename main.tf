@@ -65,12 +65,15 @@ resource "aws_instance" "default" {
     }
   }
 
-  metadata_options {
-    http_endpoint               = var.metadata_http_endpoint
-    http_protocol_ipv6          = var.metadata_http_protocol_ipv6
-    instance_metadata_tags      = var.metadata_instance_metadata_tags
-    http_put_response_hop_limit = var.metadata_http_put_response_hop_limit
-    http_tokens                 = var.metadata_http_tokens
+  dynamic "metadata_options" {
+    for_each = var.metadata_options != null ? [var.metadata_options] : []
+    content {
+      http_endpoint               = metadata_options.value.http_endpoint
+      http_protocol_ipv6          = try(metadata_options.value.http_protocol_ipv6, null)
+      instance_metadata_tags      = try(metadata_options.value.instance_metadata_tags, null)
+      http_put_response_hop_limit = try(metadata_options.value.http_put_response_hop_limit, null)
+      http_tokens                 = try(metadata_options.value.http_tokens, null)
+    }
   }
 
   credit_specification {
@@ -81,7 +84,7 @@ resource "aws_instance" "default" {
 
 
   lifecycle {
-    ignore_changes = [user_data, user_data_replace_on_change, credit_specification]
+    ignore_changes = [user_data, user_data_replace_on_change, credit_specification, metadata_options[0].http_protocol_ipv6]
   }
 }
 
