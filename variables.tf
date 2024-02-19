@@ -124,12 +124,6 @@ variable "instance_initiated_shutdown_behavior" {
   default     = null
 }
 
-variable "metadata_http_put_response_hop_limit" {
-  type        = number
-  default     = 2
-  description = "The desired HTTP PUT response hop limit (between 1 and 64) for instance metadata requests."
-}
-
 variable "tenancy" {
   type        = string
   default     = "default"
@@ -157,24 +151,6 @@ variable "external_network_interfaces" {
   default     = null
 }
 
-variable "metadata_http_endpoint" {
-  type        = string
-  default     = "enabled"
-  description = "Whether the metadata service is available"
-}
-
-variable "metadata_instance_metadata_tags" {
-  type        = string
-  default     = null
-  description = "Whether the tags are enabled in the metadata service."
-}
-
-variable "metadata_http_tokens" {
-  type        = string
-  default     = "required"
-  description = "Whether or not the metadata service requires session tokens, also referred to as Instance Metadata Service Version 2."
-}
-
 variable "device_name_list" {
   description = "Details of the EBS devices to mount"
 
@@ -192,10 +168,16 @@ variable "device_name_list" {
   default = {}
 }
 
-variable "metadata_http_protocol_ipv6" {
-  type        = string
+variable "metadata_options" {
+  type = object({
+    http_endpoint               = string
+    http_protocol_ipv6          = optional(string)
+    instance_metadata_tags      = optional(string)
+    http_put_response_hop_limit = optional(number)
+    http_tokens                 = optional(string)
+  })
+  description = "Metadata options for the instance"
   default     = null
-  description = "Whether IPv6 is enabled for the metadata service."
 }
 
 variable "public_ip_addresses" {
