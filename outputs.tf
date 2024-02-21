@@ -18,11 +18,6 @@ output "arn" {
   value       = one(aws_instance.default[*].arn)
 }
 
-output "name" {
-  description = "Instance name"
-  value       = one(aws_instance.default[*].tags.Name)
-}
-
 output "ssh_key_pair" {
   description = "Name of the SSH key pair provisioned on the instance"
   value       = var.ssh_key_pair
