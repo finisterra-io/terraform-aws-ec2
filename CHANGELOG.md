@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.0.5](https://github.com/finisterra-io/terraform-aws-ec2/compare/v1.0.4...v1.0.5) (2024-02-21)
+
+
+### Bug Fixes
+
+* outputs ([6e9caf1](https://github.com/finisterra-io/terraform-aws-ec2/commit/6e9caf183fa94d9d307f8f383c43e2a165181bb7))
+
 ### [1.0.4](https://github.com/finisterra-io/terraform-aws-ec2/compare/v1.0.3...v1.0.4) (2024-02-19)
 
 
