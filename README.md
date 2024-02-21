@@ -77,7 +77,6 @@ No modules.
 | <a name="output_additional_eni_ids"></a> [additional\_eni\_ids](#output\_additional\_eni\_ids) | Map of ENI to EIP |
 | <a name="output_arn"></a> [arn](#output\_arn) | ARN of the instance |
 | <a name="output_id"></a> [id](#output\_id) | Disambiguated ID of the instance |
-| <a name="output_name"></a> [name](#output\_name) | Instance name |
 | <a name="output_primary_network_interface_id"></a> [primary\_network\_interface\_id](#output\_primary\_network\_interface\_id) | ID of the instance's primary network interface |
 | <a name="output_private_dns"></a> [private\_dns](#output\_private\_dns) | Private DNS of instance |
 | <a name="output_private_ip"></a> [private\_ip](#output\_private\_ip) | Private IP of instance |
