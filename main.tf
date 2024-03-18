@@ -4,7 +4,8 @@ locals {
   ami            = var.ami != "" ? var.ami : one(data.aws_ami.default[*].image_id)
 }
 
-
+#already defined in dynamic "root_block_device", and dynamic "metadata_options" 
+#tfsec:ignore:aws-ec2-enable-at-rest-encryption tfsec:ignore:aws-ec2-enforce-http-token-imds
 resource "aws_instance" "default" {
   count                                = local.instance_count
   ami                                  = local.ami
