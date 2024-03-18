@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.0.6](https://github.com/finisterra-io/terraform-aws-ec2/compare/v1.0.5...v1.0.6) (2024-03-18)
+
+
+### Bug Fixes
+
+* add tfsec ([7cf46eb](https://github.com/finisterra-io/terraform-aws-ec2/commit/7cf46ebbb4c40cd685340fc3491fd5a2cfff560f))
+
 ### [1.0.5](https://github.com/finisterra-io/terraform-aws-ec2/compare/v1.0.4...v1.0.5) (2024-02-21)
 
 
