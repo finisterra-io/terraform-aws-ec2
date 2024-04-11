@@ -57,7 +57,6 @@ resource "aws_instance" "default" {
     content {
       volume_type           = root_block_device.value.volume_type
       volume_size           = root_block_device.value.volume_size
-      iops                  = root_block_device.value.iops
       throughput            = root_block_device.value.throughput
       delete_on_termination = root_block_device.value.delete_on_termination
       encrypted             = root_block_device.value.encrypted
