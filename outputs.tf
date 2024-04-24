@@ -32,14 +32,6 @@ output "security_group_ids" {
   )
 }
 
-output "additional_eni_ids" {
-  description = "Map of ENI to EIP"
-  value = zipmap(
-    aws_network_interface.additional[*].id,
-    aws_eip.additional[*].public_ip
-  )
-}
-
 output "primary_network_interface_id" {
   description = "ID of the instance's primary network interface"
   value       = one(aws_instance.default[*].primary_network_interface_id)

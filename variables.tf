@@ -46,12 +46,6 @@ variable "security_groups" {
   default     = []
 }
 
-variable "subnet" {
-  type        = string
-  description = "VPC Subnet ID the instance is launched in"
-  default     = ""
-}
-
 variable "availability_zone" {
   type        = string
   description = "Availability Zone the instance is launched in. If not set, will be launched in the first AZ of the region"
@@ -103,12 +97,6 @@ variable "source_dest_check" {
 variable "ipv6_address_count" {
   type        = number
   description = "Number of IPv6 addresses to associate with the primary network interface. Amazon EC2 chooses the IPv6 addresses from the range of your subnet (-1 to use subnet default)"
-  default     = 0
-}
-
-variable "additional_ips_count" {
-  type        = number
-  description = "Count of additional EIPs"
   default     = 0
 }
 
@@ -202,6 +190,18 @@ variable "subnet_id" {
   type        = string
   description = "VPC Subnet ID the instance is launched in"
   default     = ""
+}
+
+variable "vpc_name" {
+  type        = string
+  description = "The name of the VPC"
+  default     = null
+}
+
+variable "vpc_id" {
+  type        = string
+  description = "The ID of the VPC"
+  default     = null
 }
 
 variable "tags" {

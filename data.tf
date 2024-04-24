@@ -1,5 +1,13 @@
+data "aws_vpc" "default" {
+  count = var.enabled && var.vpc_name != null ? 1 : 0
+  tags = {
+    Name = var.vpc_name
+  }
+}
+
 data "aws_subnet" "default" {
-  count = var.subnet_name != "" ? 1 : 0
+  count  = var.enabled && var.subnet_name != null ? 1 : 0
+  vpc_id = var.vpc_name != null ? data.aws_vpc.default[0].id : var.vpc_id
   filter {
     name   = "tag:Name"
     values = [var.subnet_name]
