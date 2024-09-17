@@ -13,3 +13,9 @@ variable "public_key" {
   type        = string
   description = "The public key to use for the instance"
 }
+
+variable "tags" {
+  type        = map(string)
+  description = "A map of tags to add to all resources"
+  default     = {}
+}
