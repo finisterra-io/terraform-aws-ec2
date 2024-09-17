@@ -31,6 +31,7 @@ No modules.
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Enable EC2 instance | `bool` | `true` | no |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | The key name to use for the instance | `string` | n/a | yes |
 | <a name="input_public_key"></a> [public\_key](#input\_public\_key) | The public key to use for the instance | `string` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
 
 ## Outputs
 
